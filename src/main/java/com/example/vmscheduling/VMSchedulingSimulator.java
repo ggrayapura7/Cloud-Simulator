@@ -1,15 +1,12 @@
 package com.example.vmscheduling;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class VMSchedulingSimulator {
 
     public static void main(String[] args) {
         // Simulation parameters
-        int numVMs = 3; // Changed from 5 to 3
+        int numVMs = 3;
         int numTasks = 20;
         int maxTaskDuration = 10; // in time units
 
@@ -99,7 +96,8 @@ public class VMSchedulingSimulator {
     }
 
     private static void roundRobinScheduling(List<Task> tasks, int numVMs) {
-        StopWatch stopWatch = StopWatch.createStarted();
+        long startTime = System.nanoTime();
+
         List<VM> vms = new ArrayList<>();
         for (int i = 0; i < numVMs; i++) {
             vms.add(new VM(i + 1));
@@ -112,12 +110,14 @@ public class VMSchedulingSimulator {
             currentVM = (currentVM + 1) % numVMs;
         }
 
-        stopWatch.stop();
-        printPerformanceMetrics(vms, stopWatch.getTime(TimeUnit.MILLISECONDS));
+        long endTime = System.nanoTime();
+        long executionTimeMs = (endTime - startTime) / 1_000_000;
+        printPerformanceMetrics(vms, executionTimeMs);
     }
 
     private static void shortestJobFirstScheduling(List<Task> tasks, int numVMs) {
-        StopWatch stopWatch = StopWatch.createStarted();
+        long startTime = System.nanoTime();
+
         List<VM> vms = new ArrayList<>();
         for (int i = 0; i < numVMs; i++) {
             vms.add(new VM(i + 1));
@@ -132,8 +132,9 @@ public class VMSchedulingSimulator {
             leastLoadedVM.addTask(task);
         }
 
-        stopWatch.stop();
-        printPerformanceMetrics(vms, stopWatch.getTime(TimeUnit.MILLISECONDS));
+        long endTime = System.nanoTime();
+        long executionTimeMs = (endTime - startTime) / 1_000_000;
+        printPerformanceMetrics(vms, executionTimeMs);
     }
 
     private static void printPerformanceMetrics(List<VM> vms, long executionTimeMs) {
