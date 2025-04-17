@@ -1,5 +1,4 @@
 name: Java CI for CloudSim VM Scheduling
-
 on:
   push:
     branches: [ "main" ]
