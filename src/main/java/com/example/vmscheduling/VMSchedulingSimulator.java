@@ -1,7 +1,6 @@
 package com.example.vmscheduling;
 
 import java.util.*;
-
 public class VMSchedulingSimulator {
 
     public static void main(String[] args) {
